@@ -9,7 +9,7 @@ import java.io.Serializable;
  *  important info (correlation matrix) so that it can be deserialized faster
  *
  *  @author John Cummins
- *  @version Oct 17, 2013
+ *  @version 10.17.2013
  */
 public class CorrelationMatrix implements Serializable{
     private HashMap<String, HashMap<String, Float>> CM;

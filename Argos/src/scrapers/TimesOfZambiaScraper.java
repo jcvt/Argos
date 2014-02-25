@@ -6,37 +6,31 @@ import org.jsoup.select.Elements;
 
 // -------------------------------------------------------------------------
 /**
- * Scraper for the Times of Zambia
- * snippet needs work less than 10 p tags
+ * Pulls articles from the Times of Zambia
  *  http://www.times.co.zm/
  *
  *  @author John Cummins
  *  @version 09.25.2013
  */
-public class TimesOfZambiaScraper extends AbstractNewsArticleScraper
-{
+public class TimesOfZambiaScraper extends AbstractNewsArticleScraper{
 
-    public TimesOfZambiaScraper(String url)
-    {
+    public TimesOfZambiaScraper(String url){
         super.url = url;
-        try
-        {
+        try{
             super.doc = Jsoup.connect(url).get();
         }
-        catch (IOException e)
-        {
+        catch (IOException e){
             Thread.currentThread().interrupt();
         }
     }
+    
     @Override
-    public String title()
-    {
+    public String title(){
         return super.title(0, 18);
     }
 
     @Override
-    public String date()
-    {
+    public String date(){
         Elements date = doc.select("div[class=section]");
         String rawDate = date.text();
         String month = Utils.getMonth(rawDate);
@@ -44,12 +38,9 @@ public class TimesOfZambiaScraper extends AbstractNewsArticleScraper
         String day = "00";
 
         char[] c = rawDate.toCharArray();
-        for (int x = 0; x < c.length; x++)
-        {
-            if (c[x] == ',')
-            {
-                day =
-                    Character.toString(c[x + -2])
+        for (int x = 0; x < c.length; x++){
+            if (c[x] == ','){
+                day = Character.toString(c[x + -2])
                         + Character.toString(c[x -1]);
                 break;
             }
@@ -58,9 +49,8 @@ public class TimesOfZambiaScraper extends AbstractNewsArticleScraper
     }
 
     @Override
-    public String snippet()
-    {
-        //TODO Again not a lot of p tags use boilerpipe?
+    public String snippet(){
+        //TODO find way around p tags 
         return null;
     }
 

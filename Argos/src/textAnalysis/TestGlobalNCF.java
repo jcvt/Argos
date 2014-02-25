@@ -54,5 +54,6 @@ public class TestGlobalNCF extends TestCase{
 		assertEquals(1.0, cm.get("is").get("is"), .001);
 		assertEquals(1.0, cm.get("the").get("the"), .001);
 		
-		assertEquals(1.0, cm.get("my").get("name"), .001);	}
+		assertEquals(1.0, cm.get("my").get("name"), .001);	
+		}
 }

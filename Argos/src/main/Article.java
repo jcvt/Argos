@@ -17,8 +17,6 @@ public class Article
     private Date      date;
     private String    snippet;
     private String    url;
-    private String    pictureUrl;
-
 
     // ----------------------------------------------------------
     /**

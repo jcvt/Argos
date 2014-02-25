@@ -1,5 +1,4 @@
 package textAnalysis;
-
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.FileOutputStream;
@@ -7,8 +6,6 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 import parsers.DumpExample;
-
-// -------------------------------------------------------------------------
 /**
  * saves a global correlation matrix to a file for later use
  * 

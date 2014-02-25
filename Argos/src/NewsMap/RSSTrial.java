@@ -1,12 +1,8 @@
 package NewsMap;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * Scrapes BBC RSS and outputs to a text file
@@ -22,11 +18,15 @@ public class RSSTrial {
 	public static void main(String[] args) throws IOException {
 		// System.out.print(new
 		// BBCRSS("http://feeds.bbci.co.uk/news/world/rss.xml").getArticle());
-		BBCRSS rss = new BBCRSS("http://feeds.bbci.co.uk/news/world/rss.xml");
-		Path path = Paths.get(OUTPUT_FILE_NAME);
-		try (BufferedWriter writer = Files.newBufferedWriter(path, ENCODING)) {
-			writer.write(rss.getArticleXML());
-			writer.newLine();
+		HaaretzRSS rss = new HaaretzRSS("http://feeds.feedburner.com/haaretz/LBao");
+			for (RssArticle art : rss.getList()){
+	            String sql = "INSERT INTO article " +
+	                         "VALUES (null,'" +  art.getTitle() + "','" 
+	                         + art.getDescription() + "','"
+	                         + art.getFullText() + "','"
+	                         + art.getDate() + "','"
+	                         + art.getPublisher() + "')";
+	            System.out.println(sql);
 		}
 	}
 }

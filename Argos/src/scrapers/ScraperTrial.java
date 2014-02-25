@@ -7,7 +7,7 @@ import org.jsoup.select.Elements;
 
 // -------------------------------------------------------------------------
 /**
- * Test code to develop scrapers for specific sites
+ * Test environment to develop scrapers for specific sites
  *
  * @author John Cummins
  * @version 09.23.2013

@@ -5,8 +5,8 @@ import junit.framework.TestCase;
  * @author John Cummins
  * @version 11.12.2013
  */
-public class TestStemStop extends TestCase
-{
+public class TestStemStop extends TestCase{
+    
     String test1;
     String test2;
     String test3;
@@ -14,9 +14,7 @@ public class TestStemStop extends TestCase
     String test5;
     String test6;
     String article1;
-    /**
-     * sets up the test environment ie char[] for testing
-     */
+    
     public void setUp(){
         test1 = "it should remove all of the test stop words from this the ";
         test2 = "stemming the string should running           rapidly walking the";
@@ -33,7 +31,6 @@ public class TestStemStop extends TestCase
      * and all words are being stemmed
      */
     public void testStop(){
-    	//TODO test one has whitespace at the end of it
     	System.out.println(new String(Utils.processText(test1.toCharArray())));
     	System.out.println(new String(Utils.processText(test2.toCharArray())));
     	System.out.println(new String(Utils.processText(test3.toCharArray())));

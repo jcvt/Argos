@@ -14,7 +14,7 @@ import java.util.HashMap;
  */
 public class CalcArtilceSim
 {
-    private char[] article1;
+    private  char[] article1;
     private char[] article2;
     private float scf;
     private HashMap<String, HashMap<String, Float>> correlationMatrix;

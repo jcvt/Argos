@@ -1,12 +1,8 @@
 package scrapers;
-
 import junit.framework.TestCase;
-
-
-// -------------------------------------------------------------------------
 /**
- * A test class for all of the scrapers tests to make sure they are behaving as
- * expected
+ * A test class for all of the scrapers tests 
+ * to make sure they are behaving as expected
  *
  * @author John Cummins
  * @version 09.27.2013
@@ -45,9 +41,7 @@ public class NewsArticleScraperTest
     private ObserverScraper          observerTest          =
                                                                new ObserverScraper(
                                                                    "http://observer.ug/index.php?option=com_content&view=article&id=27716:fdc-set-for-new-elections&catid=78:topstories&Itemid=116");
-    private PatrioticVanguardScraper patrioticvangaurdTest =
-                                                               new PatrioticVanguardScraper(
-                                                                   "http://www.thepatrioticvanguard.com/spip.php?article7384");
+    
     private ProugePostScraper        prougepostTest        =
                                                                new ProugePostScraper(
                                                                    "http://www.praguepost.com/news/17181-friday-news-briefing.html");
@@ -68,18 +62,11 @@ public class NewsArticleScraperTest
                                                                    "http://online.wsj.com/article/SB10001424052702303796404579098302895368992.html?mod=WSJ_World_LEFTSecondNews");
 
 
-    public void setUp()
-    {
-        //TODO probably don't need this
-    }
-
-
     /**
      * makes sure the publisher method is returning a string related to the
      * publisher
      */
-    public void testPublisher()
-    {
+    public void testPublisher(){
         assertTrue(aljazeeraTest.publisher().contains("Aljazeera"));
         assertTrue(apTest.publisher().contains("AP"));
         assertTrue(bbcTest.publisher().contains("BBC"));
@@ -90,22 +77,19 @@ public class NewsArticleScraperTest
         assertTrue(haaretzTest.publisher().contains("Haaretz"));
         assertTrue(nytTest.publisher().contains("New"));
         assertTrue(observerTest.publisher().contains("Observer"));
-        assertTrue(patrioticvangaurdTest.publisher().contains("Patriotic"));
         assertTrue(prougepostTest.publisher().contains("Prouge"));
         assertTrue(reutersTest.publisher().contains("Reuters"));
         assertTrue(thecopenhagenpostTest.publisher().contains("Copenhagen"));
         assertTrue(timesofzambiaTest.publisher().contains("Zambia"));
         assertTrue(voaTest.publisher().contains("Voice"));
         assertTrue(wsjTest.publisher().contains("Wall"));
-
     }
 
     /**
      *  makes sure the title isn't whitespace (the default of the title method)
      *  and doesn't throw an error
      */
-    public void testTitle()
-    {
+    public void testTitle(){
         assertFalse(aljazeeraTest.title().equals(" "));
         assertFalse(apTest.title().equals(" "));
         assertFalse(bbcTest.title().equals(" "));
@@ -116,7 +100,6 @@ public class NewsArticleScraperTest
         assertFalse(haaretzTest.title().equals(" "));
         assertFalse(nytTest.title().equals(" "));
         assertFalse(observerTest.title().equals(" "));
-        assertFalse(patrioticvangaurdTest.title().equals(" "));
         assertFalse(prougepostTest.title().equals(" "));
         assertFalse(reutersTest.title().equals(" "));
         assertFalse(thecopenhagenpostTest.title().equals(" "));
@@ -126,16 +109,14 @@ public class NewsArticleScraperTest
     }
 
     /**
-     * checks for abnormal characters white space and blank dates and the
-     * correct length
+     * checks for abnormal characters white 
+     * space and blank dates and the correct length
      *
      * @return boolean true if the date is in the right format
      * @param date
      *            the date to be checked
      */
-    private boolean dateChecker(String date)
-    {
-        // TODO improve by using regex? add more characters? check for letters?
+    private boolean dateChecker(String date){
         if (date.length() != 8 || date.contains(" ") || date.contains("|")
             || date.contains(",") || date.contains("-")
             || date.substring(0, 2).equals("00")
@@ -148,11 +129,10 @@ public class NewsArticleScraperTest
     }
 
     /**
-     * uses the date checker method to see if the dates are in the desired
-     * format
+     * uses the date checker method to see 
+     * if the dates are in the desired format
      */
-    public void testDate()
-    {
+    public void testDate(){
         assertTrue(dateChecker(aljazeeraTest.date()));
         assertTrue(dateChecker(apTest.date()));
         assertTrue(dateChecker(bbcTest.date()));
@@ -163,7 +143,6 @@ public class NewsArticleScraperTest
         assertTrue(dateChecker(haaretzTest.date()));
         assertTrue(dateChecker(nytTest.date()));
         assertTrue(dateChecker(observerTest.date()));
-        assertTrue(dateChecker(patrioticvangaurdTest.date()));
         assertTrue(dateChecker(prougepostTest.date()));
         assertTrue(dateChecker(reutersTest.date()));
         assertTrue(dateChecker(thecopenhagenpostTest.date()));
@@ -174,11 +153,10 @@ public class NewsArticleScraperTest
     }
 
     /**
-     * makes sure boilerpipe is returning at least some text for
-     * analysis  ("No text Found" is the default)
+     * makes sure boilerpipe is returning at least 
+     * some text for analysis  ("No text Found" is the default)
      */
-    public void testText()
-    {
+    public void testText(){
         assertFalse(aljazeeraTest.text().equals("No Text Found"));
         assertFalse(apTest.text().equals("No Text Found"));
         assertFalse(bbcTest.text().equals("No Text Found"));
@@ -189,7 +167,6 @@ public class NewsArticleScraperTest
         assertFalse(haaretzTest.text().equals("No Text Found"));
         assertFalse(nytTest.text().equals("No Text Found"));
         assertFalse(observerTest.text().equals("No Text Found"));
-        assertFalse(patrioticvangaurdTest.text().equals("No Text Found"));
         assertFalse(prougepostTest.text().equals("No Text Found"));
         assertFalse(reutersTest.text().equals("No Text Found"));
         assertFalse(thecopenhagenpostTest.text().equals("No Text Found"));
@@ -197,6 +174,4 @@ public class NewsArticleScraperTest
         assertFalse(voaTest.text().equals("No Text Found"));
         assertFalse(wsjTest.text().equals("No Text Found"));
     }
-
-
 }

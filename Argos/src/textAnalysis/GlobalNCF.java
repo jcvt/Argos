@@ -1,10 +1,6 @@
 package textAnalysis;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
-// -------------------------------------------------------------------------
 /**
  * Takes the normalized correlation factor matrix from a list of articles and
  * combines them into one global matrix
@@ -26,7 +22,6 @@ public class GlobalNCF{
     private HashMap<String, HashMap<String, Float>>            numApperances;
     private ArrayList<HashMap<String, HashMap<String, Float>>> localNCFlist;
 
-    // ----------------------------------------------------------
     /**
      * @param listOfWordLists a list of all the local word lists
      * @param localNCFlist all the local ncf values
@@ -38,6 +33,7 @@ public class GlobalNCF{
         this.mapNCF();
         this.average();
     }
+    
     /**
      * sums the normalized correlation factors keeps track of how many article
      * word1 and word2 appear in together
@@ -46,13 +42,15 @@ public class GlobalNCF{
         for (HashMap<String, HashMap<String, Float>> localMap : localNCFlist){
             for (String word1 : localMap.keySet()){
                 for (String word2 : localMap.get(word1).keySet()){
-                	this.nullCheck(word1, word2);
+                	
+                    this.nullCheck(word1, word2);
                 	if (word1.equals(word2)){
             			globalNCF.get(word1).put(word2, (float)1);
             		}
             		else{
-            			globalNCF.get(word1).put(word2, globalNCF.get(word1).get(word2) +
-            				localMap.get(word1).get(word2));
+            			globalNCF.get(word1).put(word2, 
+            			        globalNCF.get(word1).get(word2) +
+            			            localMap.get(word1).get(word2));
             		}
                 	this.incrementNumApp(word1, word2);
                 }
@@ -103,16 +101,16 @@ public class GlobalNCF{
     private void average(){
         for (String word1 : globalNCF.keySet()){
             for (String word2 : globalNCF.get(word1).keySet()){
-            	if (!word1.equals(word2) && numApperances.get(word1).get(word2) != null){
-            		/*System.out.println("word1: " + word1 + " word2: "+ word2);*/
-                globalNCF.get(word1).put(
-                    word2,
+            	
+                if (!word1.equals(word2) && numApperances.get(word1).get(word2) != null){
+                globalNCF.get(word1).put(word2,
                     globalNCF.get(word1).get(word2)
                         / numApperances.get(word1).get(word2));
             	}
             }
         }
     }
+    
     /**
      * provides access to the final correlation matrix
      * @return the correlation matrix

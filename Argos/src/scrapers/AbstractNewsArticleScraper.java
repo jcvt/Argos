@@ -36,24 +36,19 @@ public abstract class AbstractNewsArticleScraper
 
 
     /**
-     * aim is to remove extraneous info in the title calls substring on the raw
-     * title
+     * aim is to remove extraneous info in the 
+     * title calls substring on the raw title
      *
-     * @param begin
-     *            the number of digits to be removed from the beginning
-     * @param end
-     *            the number of digits to be removed from the end
+     * @param begin the number of digits to be removed from the beginning
+     * @param end the number of digits to be removed from the end
      * @return String the modified title
      */
-    protected String title(int begin, int end)
-    {
+    protected String title(int begin, int end){
         String rawTitle = doc.title();
-        if (rawTitle.length() > begin && rawTitle.length() > end)
-        {
+        if (rawTitle.length() > begin && rawTitle.length() > end){
             return rawTitle.substring(0 + begin, rawTitle.length() - end);
         }
-        else
-        {
+        else{
             return " ";
         }
     }
@@ -75,13 +70,10 @@ public abstract class AbstractNewsArticleScraper
     public String text()
     {
         text = "No Text Found";
-        try
-        {
+        try{
             text = ArticleExtractor.INSTANCE.getText(doc.html());
         }
-        catch (BoilerpipeProcessingException e)
-        {
-            // TODO pretty sure this is what we want but ask richie
+        catch (BoilerpipeProcessingException e){
             Thread.currentThread().interrupt();
         }
         return text;
@@ -90,7 +82,6 @@ public abstract class AbstractNewsArticleScraper
 
     /**
      * scrapes a snippet of the article using the p tags
-     *
      * @return String the first few sentences of the article
      */
     public abstract String snippet();
@@ -106,7 +97,6 @@ public abstract class AbstractNewsArticleScraper
 
     /**
      * returns the url of the article
-     *
      * @return String the url of the article
      */
     public String getUrl()
@@ -115,15 +105,12 @@ public abstract class AbstractNewsArticleScraper
     }
 
 
-    // TODO the method of finding the snippet is inefficient because p tags
-// change and strings are immutable
-    protected String snippet(int y)
-    {
+    // TODO this method of finding the snippet is inefficient because p tags change
+    protected String snippet(int y){
         snippet = "";
         Elements paragraphs = doc.select("p");
         if (paragraphs.size() > y + 10)
-            for (int x = y; x < y + 10; x++)
-            {
+            for (int x = y; x < y + 10; x++){
                 snippet += paragraphs.get(x).text();
             }
         return snippet;

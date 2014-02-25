@@ -47,10 +47,9 @@ public class ArticleNCF {
 		this.popWordList();
 		cfSum = new HashMap<String, HashMap<String, Float>>();
 		for (String word2 : wordList) {
-			// maps word2 and creates a new hash map for the key
+			// maps word2 and creates a new hash map for the value
 			cfSum.put(word2, new HashMap<String, Float>());
-
-			// Initializes cf between word1 and word2 too be 0 and populates map
+			// Initializes correlation factor between word1 and word2 too be 0 and populates map
 			for (String word1 : wordList) {
 				cfSum.get(word2).put(word1, (float) 0);
 			}
@@ -202,6 +201,7 @@ public class ArticleNCF {
 				+ ((float)1.0 / (Math.abs(posW1- posW2))));
 			}
 	}
+	
 	/**
 	 * finds the last word of the article and returns it in string form
 	 * @return String the last word
@@ -215,7 +215,7 @@ public class ArticleNCF {
 			wsIdx = 0;
 		}
 			char[] word = new char[article.length - wsIdx - 1];
-			for (int z = 0; wsIdx < article.length - 1; z++) {
+			for (int z = 0; wsIdx < article.length - 1; z++){
 				word[z] = article[wsIdx + 1];
 				wsIdx++;
 			}
@@ -223,20 +223,18 @@ public class ArticleNCF {
 	}
 	// ----------------------------------------------------------
 	/**
-	 * gets the word list
-	 * 
+	 * gets the word list 
 	 * @return ArrayList<String> all the unique words in the article
 	 */
-	public ArrayList<String> getWordList() {
+	public ArrayList<String> getWordList(){
 		return wordList;
 	}
 
 	/**
 	 * gets correlation factors
-	 * 
 	 * @return HashMap<String, HashMap<String, Float>> Correlation factors
 	 */
-	public HashMap<String, HashMap<String, Float>> getCfSum() {
+	public HashMap<String, HashMap<String, Float>> getCfSum(){
 		return cfSum;
 	}
 

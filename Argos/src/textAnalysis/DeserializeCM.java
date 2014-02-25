@@ -10,13 +10,11 @@ import java.io.FileInputStream;
  *  @author John Cummins
  *  @version 10.17.2013
  */
-public class DeserializeCM
-{
-    public static CorrelationMatrix main(String[] args)
-    {
+public class DeserializeCM{
+    
+    public static CorrelationMatrix main(String[] args){
     	CorrelationMatrix CM = null;
-        try
-        {
+        try{
             FileInputStream fileIn =
                 new FileInputStream("C:/Development/CorrelationMatrix.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -25,18 +23,14 @@ public class DeserializeCM
             fileIn.close();
             return CM;
         }
-        catch (IOException i)
-        {
+        catch (IOException i){
             i.printStackTrace();
             return CM;
         }
-        catch (ClassNotFoundException c)
-        {
+        catch (ClassNotFoundException c){
             System.out.println("CorrelationMatrix class not found");
             c.printStackTrace();
             return CM;
         }
-
     }
 }
-

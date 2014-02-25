@@ -1,45 +1,36 @@
 package scrapers;
-
 import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
-
-// -------------------------------------------------------------------------
 /**
- *  Scraper for Reuters News Source
+ *  Pulls articles from Reuters 
  *
  *  @author John Cummins
  *  @version 09.22.2013
  */
-public class ReutersScraper extends AbstractNewsArticleScraper
-{
-    public ReutersScraper(String url)
-    {
+public class ReutersScraper extends AbstractNewsArticleScraper{
+    
+    public ReutersScraper(String url){
         super.url = url;
-        try
-        {
+        try{
             super.doc = Jsoup.connect(url).get();
         }
-        catch (IOException e)
-        {
+        catch (IOException e){
             Thread.currentThread().interrupt();
         }
     }
 
-
     @Override
-    public String title()
-    {
+    public String title(){
         return super.title(0, 10);
     }
+    
     @Override
-    public String snippet()
-    {
+    public String snippet(){
         return super.snippet(9);
     }
     @Override
-    public String date()
-    {
+    public String date(){
         Elements date = doc.select("META[name=REVISION_DATE]");
         String rawDate = date.attr("content").toString();
         String month = Utils.getMonth(rawDate);
@@ -49,9 +40,7 @@ public class ReutersScraper extends AbstractNewsArticleScraper
     }
 
     @Override
-    public String publisher()
-    {
+    public String publisher(){
         return "Reuters";
     }
-
 }

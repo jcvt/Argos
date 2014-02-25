@@ -1,16 +1,10 @@
 package NewsMap;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 /**
  * Scrapes BBC RSS for title, description and, date published
@@ -24,7 +18,9 @@ public class BBCRSS {
 	private static Elements titles;
 	private static Elements articles;
 	private static Elements dates;
+	private ArrayList<RssArticle> list;
 	public BBCRSS(String url) {
+	    list = new ArrayList<RssArticle>();
 		try {
 			doc = Jsoup.connect(url).get();
 		} catch (IOException e) {
@@ -33,22 +29,31 @@ public class BBCRSS {
 		titles = doc.select("item title");
 		articles = doc.select("item description");
 		dates = doc.select("item pubDate");
+		this.populateList();
 	}
-	public String getArticle(){
-		String out = "";
-		if (titles.size() != articles.size() || articles.size() != dates.size()){
-			return "Error titles dates articles don't match";
+	private void populateList(){
+		if (titles.size() == articles.size() && articles.size() == dates.size()){
+		    for (int x = 0; x < articles.size(); x++){
+		        RssArticle article = new RssArticle(
+		            titles.get(x).text(), articles.get(x).text(), 
+		            titles.get(x).text() + " " +articles.get(x).text(), 
+		            processDate(dates.get(x).text()), "BBC");
+		        list.add(article);
+		    }
 		}
-		for (int x = 0; x < articles.size(); x++){
-			out += titles.get(x).text() + "\n";
-			out += articles.get(x).text() + "\n";
-			out += dates.get(x).text() + "\n";
-			out += "\n";
-		}
-		return out;
 	}
 	
-	public String getArticleXML(){
+	private String processDate(String date){
+	    String day = date.substring(5, 7);
+	    String month = Utils.getMonth(date);
+	    String year = Utils.getYear(date);
+	    return year + "-" + month + "-" + day;
+	}
+	
+	public ArrayList<RssArticle> getList(){
+	    return list;
+	}
+	/*public String getArticleXML(){
 		String out = "";
 		if (titles.size() != articles.size() || articles.size() != dates.size()){
 			return "Error titles dates articles don't match";
@@ -60,11 +65,12 @@ public class BBCRSS {
 			out += "\n";
 		}
 		return out;
-	}
-	final static String OUTPUT_FILE_NAME = "C:\\Development\\RSS\\bbcXML.txt";
-	final static Charset ENCODING = StandardCharsets.UTF_8;
+	}*/
+	
+	/*final static String OUTPUT_FILE_NAME = "C:\\Development\\RSS\\bbcXML.txt";
+	final static Charset ENCODING = StandardCharsets.UTF_8;*/
 
-	public static void main(String[] args) throws IOException {
+	/*public static void main(String[] args) throws IOException {
 		Path path = Paths.get(OUTPUT_FILE_NAME);
 		BBCRSS rss = new BBCRSS("http://feeds.bbci.co.uk/news/world/rss.xml");
 		try (BufferedWriter writer = Files.newBufferedWriter(path, ENCODING)) {
@@ -78,5 +84,5 @@ public class BBCRSS {
 				writer.newLine();
 			}
 		}
-	}
+	}*/
 }
